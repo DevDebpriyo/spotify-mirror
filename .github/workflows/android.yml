@@ -5,8 +5,7 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
-  # Optional: Manual trigger from GitHub UI
-  workflow_dispatch:
+  workflow_dispatch:  # Allows manual trigger
 
 jobs:
   build-android:
@@ -16,25 +15,24 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
     
-    - name: Setup Node.js
+    - name: Setup Node.js (v22 for Capacitor)
       uses: actions/setup-node@v4
       with:
-        node-version: '20'  # Use Node 20 for Next.js
+        node-version: '22'  # Capacitor requires >=22.0.0
         cache: 'npm'
     
     - name: Install dependencies
       run: npm ci
     
     - name: Build Next.js app
-      run: |
-        npm run build
-        # If your build command is different, adjust here
-        # npm run build:prod or whatever you use
+      run: npm run build
     
     - name: Install Capacitor
       run: |
-        npm install @capacitor/cli @capacitor/core @capacitor/android
-        npx cap add android || echo "Android already added"
+        # Update npm to latest
+        npm install -g npm@latest
+        # Install Capacitor with specific compatible versions
+        npm install @capacitor/cli@latest @capacitor/core@latest @capacitor/android@latest
     
     - name: Setup Java
       uses: actions/setup-java@v4
@@ -45,9 +43,31 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
     
+    - name: Add Android platform
+      run: |
+        # Check if android folder exists
+        if [ ! -d "android" ]; then
+          npx cap add android
+        else
+          echo "Android platform already exists"
+        fi
+    
     - name: Sync Android project
       run: |
-        # Update capacitor.config.json if needed
+        # Create or update capacitor.config.json for Next.js
+        if [ ! -f "capacitor.config.json" ]; then
+          echo '{
+            "appId": "com.example.app",
+            "appName": "MyApp",
+            "webDir": ".next",
+            "bundledWebRuntime": false,
+            "server": {
+              "androidScheme": "https"
+            }
+          }' > capacitor.config.json
+        fi
+        
+        # Ensure webDir is set correctly for Next.js
         npx cap sync android
     
     - name: Build Android APK
@@ -61,4 +81,12 @@ jobs:
       with:
         name: android-apk
         path: android/app/build/outputs/apk/release/*.apk
+        retention-days: 7
+    
+    - name: Upload AAB artifact (optional, for Play Store)
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: android-aab
+        path: android/app/build/outputs/bundle/release/*.aab
         retention-days: 7
