@@ -92,32 +92,7 @@ jobs:
         echo "RELEASE_STORE_PASSWORD=android" >> android/gradle.properties
         echo "RELEASE_KEY_ALIAS=androiddebugkey" >> android/gradle.properties
         echo "RELEASE_KEY_PASSWORD=android" >> android/gradle.properties
-    
-    # 🔐 NEW: ADDED FOR SIGNING - Step 2: Configure Gradle for signing
-    - name: Configure Gradle Signing
-      run: |
-        # First, ensure the android/app/build.gradle has the signing config
-        # This adds signing configs to the existing android block
-        cat >> android/app/build.gradle << 'EOF'
-
-        // Signing configuration added by GitHub Actions workflow
-        signingConfigs {
-            release {
-                storeFile file("../debug.keystore")
-                storePassword "android"
-                keyAlias "androiddebugkey"
-                keyPassword "android"
-            }
-        }
-
-        buildTypes {
-            release {
-                signingConfig signingConfigs.release
-                // Keep any existing minifyEnabled or proguard settings
-            }
-        }
-        EOF
-    
+     
     - name: Build Android APK
       run: |
         cd android
