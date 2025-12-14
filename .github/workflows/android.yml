@@ -93,6 +93,15 @@ jobs:
         echo "RELEASE_KEY_ALIAS=androiddebugkey" >> android/gradle.properties
         echo "RELEASE_KEY_PASSWORD=android" >> android/gradle.properties
      
+    # Fix AndroidX compatibility
+    - name: Configure AndroidX
+      run: |
+        # Create or update gradle.properties to enable AndroidX
+        echo "android.useAndroidX=true" >> android/gradle.properties
+        echo "android.enableJetifier=true" >> android/gradle.properties
+        echo "org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8" >> android/gradle.properties
+    
+
     - name: Build Android APK
       run: |
         cd android
