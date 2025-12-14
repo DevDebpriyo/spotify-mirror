@@ -69,6 +69,54 @@ jobs:
         
         # Ensure webDir is set correctly for Next.js
         npx cap sync android
+
+    # 🔐 NEW: ADDED FOR SIGNING - Step 1: Create signing key and config
+    - name: Setup Android Signing
+      run: |
+        # Generate a debug keystore for signing (for testing purposes only)
+        keytool -genkeypair -v \
+          -keystore debug.keystore \
+          -alias androiddebugkey \
+          -keyalg RSA \
+          -keysize 2048 \
+          -validity 10000 \
+          -storepass android \
+          -keypass android \
+          -dname "CN=Android Debug, O=Android, C=US"
+        
+        # Move the keystore to the android directory
+        mv debug.keystore android/debug.keystore
+        
+        # Create a simple gradle.properties file in android directory
+        echo "RELEASE_STORE_FILE=debug.keystore" > android/gradle.properties
+        echo "RELEASE_STORE_PASSWORD=android" >> android/gradle.properties
+        echo "RELEASE_KEY_ALIAS=androiddebugkey" >> android/gradle.properties
+        echo "RELEASE_KEY_PASSWORD=android" >> android/gradle.properties
+    
+    # 🔐 NEW: ADDED FOR SIGNING - Step 2: Configure Gradle for signing
+    - name: Configure Gradle Signing
+      run: |
+        # First, ensure the android/app/build.gradle has the signing config
+        # This adds signing configs to the existing android block
+        cat >> android/app/build.gradle << 'EOF'
+
+        // Signing configuration added by GitHub Actions workflow
+        signingConfigs {
+            release {
+                storeFile file("../debug.keystore")
+                storePassword "android"
+                keyAlias "androiddebugkey"
+                keyPassword "android"
+            }
+        }
+
+        buildTypes {
+            release {
+                signingConfig signingConfigs.release
+                // Keep any existing minifyEnabled or proguard settings
+            }
+        }
+        EOF
     
     - name: Build Android APK
       run: |
