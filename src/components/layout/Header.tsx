@@ -29,7 +29,7 @@ const Header = ({ transparent = false, bgColor }: HeaderProps) => {
       style={bgColor ? { backgroundColor: bgColor } : undefined}
     >
       {/* Navigation Buttons */}
-      <div className="flex items-center gap-2">
+      <div className="flex hidden sm:block items-center gap-2">
         <button
           onClick={() => navigate(-1)}
           className="bg-spotify-black/70 rounded-full p-1 hover:bg-spotify-black transition-colors"
@@ -38,10 +38,13 @@ const Header = ({ transparent = false, bgColor }: HeaderProps) => {
         </button>
         <button
           onClick={() => navigate(1)}
-          className="invisible sm:visible bg-spotify-black/70 rounded-full p-1 hover:bg-spotify-black transition-colors"
+          className="bg-spotify-black/70 rounded-full p-1 hover:bg-spotify-black transition-colors"
         >
           <ChevronRight className="h-6 w-6" />
         </button>
+      </div>
+      <div className="block pt-2 sm:hidden h-14 w-14">
+        <img src="/public/icon.png" alt="Logo" />
       </div>
 
       {/* Right Side */}
