@@ -46,15 +46,11 @@ const NowPlayingBar = () => {
   const RepeatIcon = repeat === 'one' ? Repeat1 : Repeat;
 
   if (!currentTrack) {
-    return (
-      <div className="spotify-now-playing-bar flex items-center justify-center">
-        <p className="text-muted-foreground text-sm">Select a track to start playing</p>
-      </div>
-    );
+    return null;
   }
 
   return (
-    <div className="spotify-now-playing-bar flex items-center justify-between">
+    <div className="spotify-now-playing-bar flex items-center justify-between animate-slide-up">
       {/* Track Info */}
       <div className="flex items-center gap-4 w-[30%] min-w-[180px]">
         <img
@@ -78,7 +74,7 @@ const NowPlayingBar = () => {
       {/* Player Controls */}
       <div className="flex flex-col items-center gap-2 w-[40%] max-w-[722px]">
         <div className="flex items-center gap-4">
-          <button
+          {/* <button
             onClick={toggleShuffle}
             className={cn(
               "text-muted-foreground hover:text-foreground transition-colors",
@@ -86,7 +82,7 @@ const NowPlayingBar = () => {
             )}
           >
             <Shuffle className="h-4 w-4" />
-          </button>
+          </button> */}
           
           <button
             onClick={previousTrack}
@@ -116,7 +112,7 @@ const NowPlayingBar = () => {
           <button
             onClick={toggleRepeat}
             className={cn(
-              "text-muted-foreground hover:text-foreground transition-colors relative",
+              "hidden sm:block text-muted-foreground hover:text-foreground transition-colors relative",
               repeat !== 'off' && "text-primary"
             )}
           >
@@ -128,7 +124,7 @@ const NowPlayingBar = () => {
         </div>
 
         {/* Progress Bar */}
-        <div className="flex items-center gap-2 w-full">
+        <div className="hidden sm:block flex items-center gap-2 w-full">
           <span className="text-xs text-muted-foreground w-10 text-right">
             {formatTime(progress)}
           </span>

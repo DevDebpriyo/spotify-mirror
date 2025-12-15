@@ -14,7 +14,7 @@ const MobileNav = () => {
   const isActive = (path: string) => location.pathname.startsWith(path);
 
   return (
-    <nav className="md:hidden fixed bottom-[90px] left-0 right-0 bg-gradient-to-t from-spotify-black via-spotify-black to-transparent px-8 py-4">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-spotify-black border-t border-border px-8 py-4 z-50">
       <div className="flex items-center justify-around">
         {navItems.map((item) => (
           <Link

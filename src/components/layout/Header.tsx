@@ -38,7 +38,7 @@ const Header = ({ transparent = false, bgColor }: HeaderProps) => {
         </button>
         <button
           onClick={() => navigate(1)}
-          className="bg-spotify-black/70 rounded-full p-1 hover:bg-spotify-black transition-colors"
+          className="invisible sm:visible bg-spotify-black/70 rounded-full p-1 hover:bg-spotify-black transition-colors"
         >
           <ChevronRight className="h-6 w-6" />
         </button>

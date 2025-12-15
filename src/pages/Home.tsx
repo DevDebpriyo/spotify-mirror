@@ -8,9 +8,9 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 const getGreeting = () => {
   const hour = new Date().getHours();
-  if (hour < 12) return 'Good morning';
-  if (hour < 18) return 'Good afternoon';
-  return 'Good evening';
+  if (hour < 12) return 'Good morning🌞';
+  if (hour < 18) return 'Good afternoon🌤️';
+  return 'Good evening🌙';
 };
 
 const Home = () => {
@@ -56,7 +56,7 @@ const Home = () => {
       
       <div className="px-6 pb-32 space-y-8">
         {/* Greeting */}
-        <h1 className="text-3xl font-bold pt-4 animate-fade-in">{getGreeting()}</h1>
+        <h1 className="text-3xl font-bold text-yellow-500 pt-4 animate-fade-in">{getGreeting()}</h1>
 
         {/* Recently Played Grid */}
         <section>
@@ -87,9 +87,9 @@ const Home = () => {
           </div>
           
           {isLoading ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            <div className="flex overflow-x-auto gap-4 pb-4 sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 sm:overflow-visible sm:pb-0 scrollbar-hide">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="space-y-4">
+                <div key={i} className="flex-shrink-0 w-[140px] sm:w-auto space-y-4">
                   <Skeleton className="aspect-square rounded-md bg-muted/30" />
                   <Skeleton className="h-4 w-3/4 bg-muted/30" />
                   <Skeleton className="h-3 w-1/2 bg-muted/30" />
@@ -97,15 +97,16 @@ const Home = () => {
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            <div className="flex overflow-x-auto gap-4 pb-4 sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 sm:overflow-visible sm:pb-0 scrollbar-hide">
               {popularVideos.slice(0, 6).map((video) => (
-                <PlaylistCard
-                  key={video.id}
-                  title={video.title}
-                  description={video.channelTitle}
-                  image={video.thumbnailHigh}
-                  tracks={[video]}
-                />
+                <div key={video.id} className="flex-shrink-0 w-[140px] sm:w-auto">
+                  <PlaylistCard
+                    title={video.title}
+                    description={video.channelTitle}
+                    image={video.thumbnailHigh}
+                    tracks={[video]}
+                  />
+                </div>
               ))}
             </div>
           )}
@@ -130,9 +131,9 @@ const Home = () => {
             </div>
             
             {isLoading ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+              <div className="flex overflow-x-auto gap-4 pb-4 sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 sm:overflow-visible sm:pb-0 scrollbar-hide">
                 {[...Array(6)].map((_, i) => (
-                  <div key={i} className="space-y-4">
+                  <div key={i} className="flex-shrink-0 w-[140px] sm:w-auto space-y-4">
                     <Skeleton className="aspect-square rounded-md bg-muted/30" />
                     <Skeleton className="h-4 w-3/4 bg-muted/30" />
                     <Skeleton className="h-3 w-1/2 bg-muted/30" />
@@ -140,15 +141,16 @@ const Home = () => {
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+              <div className="flex overflow-x-auto gap-4 pb-4 sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 sm:overflow-visible sm:pb-0 scrollbar-hide">
                 {(categoryVideos[category.id] || []).slice(0, 6).map((video) => (
-                  <PlaylistCard
-                    key={video.id}
-                    title={video.title}
-                    description={video.channelTitle}
-                    image={video.thumbnailHigh}
-                    tracks={[video]}
-                  />
+                  <div key={video.id} className="flex-shrink-0 w-[140px] sm:w-auto">
+                    <PlaylistCard
+                      title={video.title}
+                      description={video.channelTitle}
+                      image={video.thumbnailHigh}
+                      tracks={[video]}
+                    />
+                  </div>
                 ))}
               </div>
             )}

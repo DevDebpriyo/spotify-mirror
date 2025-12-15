@@ -39,13 +39,13 @@ const RecentPlayCard = ({ video }: RecentPlayCardProps) => {
         alt={video.title}
         className="w-12 h-12 sm:w-20 sm:h-20 object-cover"
       />
-      <span className="font-semibold truncate flex-1 text-sm sm:text-base">
+      <span className="font-semibold text-ellipsis h-10 flex-1 text-sm sm:text-base">
         {video.title}
       </span>
       <button 
         className={cn(
           "mr-4 bg-primary rounded-full p-2 shadow-lg transition-all duration-200",
-          "opacity-0 group-hover:opacity-100 hover:scale-105",
+          "opacity-0 sm:opacity-100 hover:scale-105",
           isCurrentTrack && isPlaying && "opacity-100"
         )}
       >
