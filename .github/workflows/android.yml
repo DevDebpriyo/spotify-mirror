@@ -84,8 +84,8 @@ jobs:
           -keypass android \
           -dname "CN=Android Debug, O=Android, C=US"
         
-        # Move the keystore to the android directory
-        mv debug.keystore android/debug.keystore
+        # Move the keystore to the android/app/ directory
+        mv debug.keystore android/app/debug.keystore
         
         # Create a simple gradle.properties file in android directory
         echo "RELEASE_STORE_FILE=debug.keystore" > android/gradle.properties
