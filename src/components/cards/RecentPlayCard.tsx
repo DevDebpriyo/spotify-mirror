@@ -2,6 +2,8 @@ import { Play, Pause } from 'lucide-react';
 import { usePlayer } from '@/contexts/PlayerContext';
 import { YouTubeVideo } from '@/services/youtubeApi';
 import { cn } from '@/lib/utils';
+import { useMemo } from 'react';
+import { getRandomColor } from '@/lib/cardColors';
 
 interface RecentPlayCardProps {
   video: YouTubeVideo;
@@ -9,6 +11,7 @@ interface RecentPlayCardProps {
 
 const RecentPlayCard = ({ video }: RecentPlayCardProps) => {
   const { playTrack, currentTrack, isPlaying, togglePlay } = usePlayer();
+  const backgroundColor = useMemo(() => getRandomColor(), []);
 
   const isCurrentTrack = currentTrack?.videoId === video.id;
 
@@ -29,9 +32,10 @@ const RecentPlayCard = ({ video }: RecentPlayCardProps) => {
   return (
     <div 
       className={cn(
-        "group flex items-center gap-4 bg-muted/30 hover:bg-muted/50 rounded overflow-hidden transition-colors cursor-pointer animate-fade-in",
-        isCurrentTrack && "bg-muted/50"
+        "group flex items-center gap-4 rounded overflow-hidden transition-all cursor-pointer animate-fade-in hover:brightness-110",
+        isCurrentTrack && "brightness-110"
       )}
+      style={{ backgroundColor }}
       onClick={handleClick}
     >
       <img
@@ -39,20 +43,20 @@ const RecentPlayCard = ({ video }: RecentPlayCardProps) => {
         alt={video.title}
         className="w-12 h-12 sm:w-20 sm:h-20 object-cover"
       />
-      <span className="font-semibold text-ellipsis h-10 flex-1 text-sm sm:text-base">
+      <span className="font-semibold text-ellipsis h-10 flex-1 text-sm sm:text-base text-white">
         {video.title}
       </span>
       <button 
         className={cn(
-          "mr-4 bg-primary rounded-full p-2 shadow-lg transition-all duration-200",
+          "mr-4 bg-white/90 rounded-full p-2 shadow-lg transition-all duration-200",
           "opacity-0 sm:opacity-100 hover:scale-105",
           isCurrentTrack && isPlaying && "opacity-100"
         )}
       >
         {isCurrentTrack && isPlaying ? (
-          <Pause className="h-4 w-4 fill-spotify-black text-spotify-black" />
+          <Pause className="h-4 w-4 fill-black text-black" />
         ) : (
-          <Play className="h-4 w-4 fill-spotify-black text-spotify-black ml-0.5" />
+          <Play className="h-4 w-4 fill-black text-black ml-0.5" />
         )}
       </button>
     </div>

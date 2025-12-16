@@ -44,7 +44,7 @@ const Header = ({ transparent = false, bgColor }: HeaderProps) => {
         </button>
       </div>
       <div className="block pt-2 sm:hidden h-14 w-14">
-        <img src="/public/icon.png" alt="Logo" />
+        <img src="https://res.cloudinary.com/dh1nktbkn/image/upload/v1765867324/icon_qbdbfx.png" alt="Logo" />
       </div>
 
       {/* Right Side */}

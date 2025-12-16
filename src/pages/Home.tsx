@@ -60,26 +60,9 @@ const Home = () => {
 
   return (
     <div className="h-full overflow-y-auto relative">
-      {/* Background ColorBends */}
-      <div className="fixed inset-0 z-0 opacity-40">
-        <ColorBends
-          colors={["#ff5c7a", "#8a5cff", "#00ffd1"]}
-          rotation={0}
-          speed={0}
-          scale={1.0}
-          frequency={1.8}
-          warpStrength={1.1}
-          mouseInfluence={1.5}
-          parallax={0.8}
-          noise={0.05}
-          autoRotate={0.8}
-          transparent={false}
-        />
-      </div>
-      <div className="fixed inset-0 z-1 bg-black/60 backdrop-blur-md">
-
-      </div>
-
+      {/* Background Image */}
+      <div className="fixed inset-0 z-0 bg-[url(https://res.cloudinary.com/dh1nktbkn/image/upload/v1765867330/bg_vuufhh.jpg)] bg-cover bg-center"/>
+      <div className="fixed inset-0 z-1 bg-black/80 backdrop-blur-md"/>
       {/* Content */}
       <div className="relative z-10">
         <Header transparent />
