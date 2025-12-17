@@ -33,7 +33,7 @@ const PlaylistCard = ({ title, description, image, tracks, onClick }: PlaylistCa
   return (
     <div 
       className="group animate-fade-in rounded-lg p-4 transition-all duration-300 hover:brightness-110 cursor-pointer"
-      style={{ backgroundColor }}
+      style={{ backgroundColor: `${backgroundColor}40` }}
       onClick={onClick}
     >
       {/* Image */}

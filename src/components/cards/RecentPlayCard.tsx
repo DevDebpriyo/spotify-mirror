@@ -35,7 +35,7 @@ const RecentPlayCard = ({ video }: RecentPlayCardProps) => {
         "group flex items-center gap-4 rounded overflow-hidden transition-all cursor-pointer animate-fade-in hover:brightness-110",
         isCurrentTrack && "brightness-110"
       )}
-      style={{ backgroundColor }}
+      style={{ backgroundColor: `${backgroundColor}30` }}
       onClick={handleClick}
     >
       <img

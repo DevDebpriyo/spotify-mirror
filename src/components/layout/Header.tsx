@@ -23,7 +23,7 @@ const Header = ({ transparent = false, bgColor }: HeaderProps) => {
   return (
     <header
       className={cn(
-        "sticky top-0 z-10 flex items-center justify-between px-6 py-4 transition-colors duration-300",
+        "sm:sticky top-0 z-10 flex items-center justify-between px-6 py-4 transition-colors duration-300",
         transparent ? "bg-transparent" : "bg-background/80 backdrop-blur-md"
       )}
       style={bgColor ? { backgroundColor: bgColor } : undefined}

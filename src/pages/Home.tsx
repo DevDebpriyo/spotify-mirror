@@ -10,7 +10,6 @@ import {
   musicCategories,
 } from "@/services/youtubeApi";
 import { Skeleton } from "@/components/ui/skeleton";
-import ColorBends from "@/components/ColorBends";
 
 const getGreeting = () => {
   const hour = new Date().getHours();
@@ -124,7 +123,7 @@ const Home = () => {
                 {popularVideos.slice(0, 6).map((video) => (
                   <div
                     key={video.id}
-                    className="flex-shrink-0 w-[140px] sm:w-auto"
+                    className="flex-shrink-0 w-[200px] sm:w-auto"
                   >
                     <PlaylistCard
                       title={video.title}
@@ -170,13 +169,13 @@ const Home = () => {
                   ))}
                 </div>
               ) : (
-                <div className="flex overflow-x-auto gap-4 pb-4 sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 sm:overflow-visible sm:pb-0 scrollbar-hide">
+                <div className="flex overflow-x-auto gap-1 sm:gap-4 pb-4 sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 sm:overflow-visible sm:pb-0 scrollbar-hide">
                   {(categoryVideos[category.id] || [])
                     .slice(0, 6)
                     .map((video) => (
                       <div
                         key={video.id}
-                        className="flex-shrink-0 w-[140px] sm:w-auto"
+                        className="flex-shrink-0 w-[150px] sm:w-auto"
                       >
                         <PlaylistCard
                           title={video.title}
