@@ -16,6 +16,7 @@ import Library from "./pages/Library";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import NowPlaying from "./pages/NowPlaying";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,6 +43,7 @@ const App = () => (
               <Route path="/onboarding" element={<Onboarding />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/now-playing" element={<NowPlaying />} />
               
               {/* Main App Routes with Layout */}
               <Route element={<MainLayout />}>

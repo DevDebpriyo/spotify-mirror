@@ -15,6 +15,7 @@ import {
   Heart,
 } from "lucide-react";
 import { usePlayer } from "@/contexts/PlayerContext";
+import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Slider } from "@/components/ui/slider";
 
@@ -25,6 +26,7 @@ const formatTime = (seconds: number): string => {
 };
 
 const NowPlayingBar = () => {
+  const navigate = useNavigate();
   const {
     currentTrack,
     isPlaying,
@@ -52,7 +54,15 @@ const NowPlayingBar = () => {
   return (
     <div className=" bg-blue-800 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 spotify-now-playing-bar flex items-center justify-between animate-slide-up">
       {/* Track Info */}
-      <div className="flex items-center gap-4 w-[30%] min-w-[180px]">
+      <div
+        className="flex items-center gap-4 w-[30%] min-w-[180px] cursor-pointer sm:cursor-default"
+        onClick={() => {
+          // Only navigate on mobile/tablet screens
+          if (window.innerWidth < 1024) {
+            navigate("/now-playing");
+          }
+        }}
+      >
         <img
           src={currentTrack.thumbnail}
           alt={currentTrack.title}
